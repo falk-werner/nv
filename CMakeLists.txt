@@ -1,0 +1,76 @@
+cmake_minimum_required (VERSION 3.10)
+project(nv VERSION 0.1.0 DESCRIPTION "text viewer")
+
+option(WITHOUT_TESTS "diable unit tests" OFF)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(NCURSES REQUIRED ncurses)
+
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_library(nv_static STATIC
+    src/nv.c
+)
+
+target_link_libraries(nv_static PUBLIC
+    ${NCURSES_LIBRARIES}
+)
+
+add_executable(nv
+    src/main.c
+)
+
+target_link_libraries(nv
+    nv_static
+)
+
+install(TARGETS nv DESTINATION bin)
+
+set(CPACK_SOURCE_GENERATOR "TGZ")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME "nv-${PROJECT_VERSION}")
+set(CPACK_SOURCE_IGNORE_FILES
+    "${CMAKE_SOURCE_DIR}/build/"
+    "${CMAKE_SOURCE_DIR}/.git/"
+)
+
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+set(CPACK_DESCRIPTION "text viewer")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Falk Werner")
+set(CPACK_DEBIAN_PACKAGE_SECTION "utils")
+set(CPACK_DEBIAN_FILE_NAME "nv_${PROJECT_VERSION}.deb")
+set(CPACK_DEBIAN_PACKAGE_NAME "nv")
+
+include(CPack)
+
+if(NOT WITHOUT_TESTS)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+pkg_check_modules(GTEST gtest_main)
+include(GoogleTest)
+pkg_check_modules(GMOCK gmock)
+
+add_executable(alltests
+    test/dummy.cc
+)
+
+target_include_directories(alltests PRIVATE
+    src
+    ${GMOCK_INCLUDE_DIRS}
+    ${GTEST_INCLUDE_DIRS}
+)
+
+target_link_libraries(alltests PRIVATE
+    nv_static
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${GMOCK_LIBRARIES}
+    ${GTEST_LIBRARIES}
+)
+
+endif()
