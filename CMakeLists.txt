@@ -57,11 +57,14 @@ include(GoogleTest)
 pkg_check_modules(GMOCK gmock)
 
 add_executable(alltests
+    test/util/memory_output_stream.cc
+    test/util/memory_input_stream.cc
     test/dummy.cc
 )
 
 target_include_directories(alltests PRIVATE
     src
+    test
     ${GMOCK_INCLUDE_DIRS}
     ${GTEST_INCLUDE_DIRS}
 )
