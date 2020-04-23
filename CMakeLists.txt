@@ -10,15 +10,19 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+configure_file(src/nv/version.h.in gen/nv/version.h)
+
 add_library(nv_static STATIC
     src/nv/main.c
     src/nv/context.c
     src/nv/command.c
     src/nv/print_usage.c
+    src/nv/print_version.c
 )
 
 target_include_directories(nv_static PUBLIC
     src
+    ${CMAKE_CURRENT_BINARY_DIR}/gen
 )
 
 target_link_libraries(nv_static PUBLIC

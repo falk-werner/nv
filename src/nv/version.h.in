@@ -1,0 +1,13 @@
+#ifndef NV_VERSION_H
+#define NV_VERSION_H
+
+#define NV_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define NV_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define NV_VERSION_PATCH @PROJECT_VERSION_PATCH@
+
+#define NV_VERSION "@PROJECT_VERSION@"
+
+#define NV_COPYRIGHT "Copyright (c) 2020 Falk Werner"
+#define NV_HOMEPAGE "https://github.com/falk-werner/nv"
+
+#endif

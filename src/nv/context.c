@@ -25,7 +25,7 @@ nv_context_init(
 
     static struct option const options[] =
     {
-        {"file", required_argument, NULL, 'f'},
+        {"version", no_argument, NULL, 'v'},
         {"help", no_argument, NULL, 'h'},
         {NULL, 0, NULL, 0}
     };
@@ -35,7 +35,7 @@ nv_context_init(
     while (!is_finished)
     {
         int option_index = 0;
-        int const c = getopt_long(argc, argv, "f:h", options, &option_index);
+        int const c = getopt_long(argc, argv, "vh", options, &option_index);
         
         switch (c)
         {
@@ -46,9 +46,9 @@ nv_context_init(
                 context->command = &nv_print_usage;
                 is_finished = true;
                 break;
-            case 'f':
-                free(context->filename);
-                context->filename = strdup(optarg);
+            case 'v':
+                context->command = &nv_print_version;
+                is_finished = true;
                 break;
             default:
                 fprintf(context->err, "error: unknown argument\n");
@@ -56,6 +56,14 @@ nv_context_init(
                 context->exit_code = EXIT_FAILURE;
                 is_finished = true;
                 break;
+        }
+    }
+
+    if (EXIT_SUCCESS == context->exit_code)
+    {
+        if ((optind < argc) && (NULL != argv[optind]))
+        {
+            context->filename = strdup(argv[optind]);
         }
     }
 
