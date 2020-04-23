@@ -16,6 +16,10 @@ extern int
 nv_print_version(
     struct nv_context * context);
 
+extern int
+nv_view_file(
+    struct nv_context * context);
+
 #ifdef __cplusplus
 }
 #endif

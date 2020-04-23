@@ -13,7 +13,12 @@ TEST(nv_main, print_usage)
     MemoryOutputStream out;
     MemoryOutputStream err;
 
-    int rc = nv_main(in, out, err, 0, nullptr);
+    int argc = 2;
+    char argv0[] = "nv";
+    char argv1[] = "--help";
+    char * argv[] = {argv0, argv1, nullptr};
+
+    int rc = nv_main(in, out, err, argc, argv);
     ASSERT_LT(0, out.size());
     ASSERT_STREQ("", err.c_str());
     ASSERT_EQ(EXIT_SUCCESS, rc);

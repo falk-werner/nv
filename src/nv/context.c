@@ -20,7 +20,7 @@ nv_context_init(
     context->out = out;
     context->err = err;
     context->filename = NULL;
-    context->command = &nv_print_usage;
+    context->command = &nv_view_file;
     context->exit_code = EXIT_SUCCESS;
 
     static struct option const options[] =

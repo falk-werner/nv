@@ -18,6 +18,8 @@ add_library(nv_static STATIC
     src/nv/command.c
     src/nv/print_usage.c
     src/nv/print_version.c
+    src/nv/view_file.c
+    src/nv/buffer.c
 )
 
 target_include_directories(nv_static PUBLIC
