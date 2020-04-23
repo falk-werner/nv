@@ -11,7 +11,14 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(nv_static STATIC
-    src/nv.c
+    src/nv/main.c
+    src/nv/context.c
+    src/nv/command.c
+    src/nv/print_usage.c
+)
+
+target_include_directories(nv_static PUBLIC
+    src
 )
 
 target_link_libraries(nv_static PUBLIC
@@ -59,11 +66,10 @@ pkg_check_modules(GMOCK gmock)
 add_executable(alltests
     test/util/memory_output_stream.cc
     test/util/memory_input_stream.cc
-    test/dummy.cc
+    test/main.cc
 )
 
 target_include_directories(alltests PRIVATE
-    src
     test
     ${GMOCK_INCLUDE_DIRS}
     ${GTEST_INCLUDE_DIRS}
