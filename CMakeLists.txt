@@ -71,6 +71,7 @@ add_executable(alltests
     test/util/memory_output_stream.cc
     test/util/memory_input_stream.cc
     test/main.cc
+    test/context.cc
 )
 
 target_include_directories(alltests PRIVATE

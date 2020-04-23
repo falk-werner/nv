@@ -31,6 +31,7 @@ nv_context_init(
     };
 
     optind = 0;
+    opterr = 0;
     bool is_finished = false;
     while (!is_finished)
     {
