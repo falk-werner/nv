@@ -20,6 +20,9 @@ add_library(nv_static STATIC
     src/nv/print_version.c
     src/nv/view_file.c
     src/nv/buffer.c
+    src/nv/lines.c
+    src/nv/line_reader.c
+    src/nv/document.c
 )
 
 target_include_directories(nv_static PUBLIC
@@ -74,6 +77,8 @@ add_executable(alltests
     test/util/memory_input_stream.cc
     test/main.cc
     test/context.cc
+    test/lines.cc
+    test/line_reader.cc
 )
 
 target_include_directories(alltests PRIVATE
@@ -90,3 +95,6 @@ target_link_libraries(alltests PRIVATE
 )
 
 endif()
+
+#			test
+#   test

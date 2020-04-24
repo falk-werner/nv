@@ -16,10 +16,11 @@ nv_buffer_from_file(
         size_t size = ftell(file);
         fseek(file, 0, SEEK_SET);
 
-        char * data = malloc(size);
+        char * data = malloc(size + 1);
         size_t bytesRead = fread(data, 1, size, file);
         if (bytesRead == size)
         {
+            data[size] = '\0';
             buffer->data = data;
             buffer->size = size;
         }
